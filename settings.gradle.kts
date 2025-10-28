@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "ShimmerLibrary"
 include(":app")
- 
+include(":shimmerlibrary")
