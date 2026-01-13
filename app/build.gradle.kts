@@ -2,11 +2,19 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    `maven-publish`
 }
 
 android {
     namespace = "com.example.shimmerlibrary"
     compileSdk = 36
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 
     defaultConfig {
         applicationId = "com.example.shimmerlibrary"
@@ -58,4 +66,20 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     implementation(project(":shimmerlibrary"))
+}
+
+
+publishing {
+    publications {
+        create("release", MavenPublication::class) {
+            groupId = "com.github.joykangangi"
+            artifactId = "ShimmerLibrary"
+            version = "0.0.1"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+
+        }
+    }
 }
